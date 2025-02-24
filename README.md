@@ -1,5 +1,5 @@
 # SpigotUtilAPI 
-This is a utilities API which I made on my own to make my plugin development a bit easier 
+This is a utilities API which I made on my own to make my plugin development a bit easier.
 It also contains some other stuff because I wanted to look cool. 
 
 ## What this API has:
