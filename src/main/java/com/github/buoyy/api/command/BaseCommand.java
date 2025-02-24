@@ -15,7 +15,8 @@ import java.util.function.Consumer;
 
 /**
  * Represents a base command which may or may not
- * have arguments. @see SubCommand for argument command.
+ * have arguments.
+ * @see SubCommand for argument command.
  */
 @SuppressWarnings("unused")
 public class BaseCommand implements CommandExecutor, TabCompleter {

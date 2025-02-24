@@ -1,6 +1,5 @@
 package com.github.buoyy.api.gui;
 
-import com.github.buoyy.api.gui.impl.StorageGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -34,11 +33,7 @@ public class GUIManager {
             this.unregisterInv(e.getInventory());
         }
     }
-    public void openGUI(Player player, InventoryGUI handler) {
-        this.registerInv(handler.getInv(), handler);
-        player.openInventory(handler.getInv());
-    }
-    public void openGUI(Player player, StorageGUI handler) {
+    public void openGUI(Player player, InventoryHandler handler) {
         this.registerInv(handler.getInv(), handler);
         player.openInventory(handler.getInv());
     }

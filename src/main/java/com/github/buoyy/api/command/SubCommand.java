@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 /**
- * A class representing a sub-command related to a
- * base command (@sew BaseCommand).
+ * A class representing a sub-command related to a base command
+ * @see BaseCommand
  */
 public interface SubCommand {
     /**
