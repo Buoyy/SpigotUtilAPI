@@ -1,4 +1,4 @@
-package com.github.buoyy.api;
+package com.github.buoyy.api.economy;
 
 import org.bukkit.Material;
 

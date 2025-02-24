@@ -1,5 +1,6 @@
-package com.github.buoyy.api;
+package com.github.buoyy.api.economy;
 
+@SuppressWarnings("unused")
 public class Transaction {
     public final int amount;
     public final CurrencyType type;
