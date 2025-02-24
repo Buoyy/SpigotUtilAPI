@@ -13,6 +13,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * Represents a base command which may or may not
+ * have arguments. @see SubCommand for argument command.
+ */
 @SuppressWarnings("unused")
 public class BaseCommand implements CommandExecutor, TabCompleter {
 
@@ -20,11 +24,24 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
     private final String usage;
     private final Consumer<Player> onNoArgs;
 
+    /**
+     * The constructor for this class.
+     * @param usage - The usage of command. A helper field.
+     * @param onNoArgs - The code to run when no arguments are provided.
+     */
     public BaseCommand(String usage, Consumer<Player> onNoArgs) {
         this.subs = new HashMap<>();
         this.usage = usage;
         this.onNoArgs = onNoArgs;
     }
+
+    /**
+     * Registers a sub-command to this base command.
+     * This makes it so that the command looks like this:
+     * /base sub
+     * @param name - The sub-command's name to be registered
+     * @param command - The SubCommand class to use for the given sub-command
+     */
     public void registerSubCommand(String name, SubCommand command) {
         subs.put(name.toLowerCase(), command);
     }
@@ -58,6 +75,14 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
         return tabs;
     }
 
+    /**
+     * A helper method returning a list of all players'
+     * names who have ever joined tbe server.
+     * @param includeSelf - if the word "self" is to be included.
+     *                    Useful to implement in your commands as an
+     *                    alternative to @s in the base game.
+     * @return - the list of names processed
+     */
     public static List<String> getPlayerNames(boolean includeSelf) {
         List<String> names = new ArrayList<>();
         Arrays.stream(Bukkit.getOfflinePlayers())
