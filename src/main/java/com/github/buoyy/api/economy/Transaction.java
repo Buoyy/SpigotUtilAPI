@@ -29,9 +29,17 @@ public class Transaction {
         this.result = result;
     }
 
+    /**
+     * Informs of the success of the transaction
+     * @return true if successful, otherwise false
+     */
     public boolean isSuccessful() {
         return this.result == TransactionResult.SUCCESS;
     }
+
+    /**
+     * The enum constants for transaction
+     */
     public enum TransactionResult {
         SUCCESS, FAILURE
     }
