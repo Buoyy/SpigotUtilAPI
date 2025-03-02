@@ -74,6 +74,18 @@ public class InvButton {
         }
 
         /**
+         * Returns the builder with an item display as provided
+         * in the argument
+         * @param icon The ItemStack whose texture will be used
+         *             for the button
+         * @return The Builder object
+         */
+        public Builder setIcon(ItemStack icon) {
+            this.icon = new ItemStack(icon);
+            return this;
+        }
+
+        /**
          * Returns the builder with an item name as provided
          * in the argument. If not used, the button's name will
          * be the same as its icon.

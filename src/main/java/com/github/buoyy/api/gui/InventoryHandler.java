@@ -10,16 +10,7 @@ import org.bukkit.inventory.Inventory;
  * Inventory based GUI.
  */
 public abstract class InventoryHandler {
-    private final Inventory inv;
-
-    /**
-     * The constructor of such a class.
-     * Just creates the inventory.
-     */
-    public InventoryHandler() {
-        this.inv = this.createInv();
-    }
-
+    public Inventory inv;
     /**
      * Retrieves the inventory being handled by this class.
      * @return the inventory being handled by this class
@@ -30,7 +21,8 @@ public abstract class InventoryHandler {
 
     /**
      * A method which returns the inventory to be created
-     * for this handler. Usually made with Bukkit#createInventory
+     * for this handler. Usually made with Bukkit#createInventory, this
+     * method MUST be called in any subclass' constructor.
      * @return the inventory
      */
     public abstract Inventory createInv();

@@ -16,7 +16,6 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public abstract class InventoryGUI extends InventoryHandler {
     private final Map<Integer, InvButton> buttons = new HashMap<>();
-
     /**
      * Adds the provided button to the provided slot
      * in the inventory.
@@ -50,7 +49,7 @@ public abstract class InventoryGUI extends InventoryHandler {
     public void onClick(InventoryClickEvent e) {
         e.setCancelled(true);
         InvButton button = this.buttons.get(e.getSlot());
-        if (button != null) button.getOnClick().accept(e);
+        if (button != null && button.getOnClick() != null) button.getOnClick().accept(e);
     }
 
     /**

@@ -24,7 +24,6 @@ public class GUIManager {
     private void unregisterInv(Inventory inv) {
         this.storages.remove(inv);
     }
-
     /**
      * Handles the clicking event.
      * @param e The event to pass to the Listener
