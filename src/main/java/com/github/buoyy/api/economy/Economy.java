@@ -19,7 +19,7 @@ import java.util.UUID;
  * @see Transaction
  */
 @SuppressWarnings("unused")
-public class Economy {
+public class Economy implements IEconomy {
     private final YAML dataFile;
     private final Messenger messenger;
 
@@ -43,6 +43,7 @@ public class Economy {
      * @param type The type of currency to format to.
      * @return The formatted string.
      */
+    @Override
     public String format(int a, CurrencyType type) {
         return a + " " + (a == 1 ? type.getNameSingular() : type.getNamePlural());
     }
@@ -54,6 +55,7 @@ public class Economy {
      * @param type   The currency type
      * @return The formatted balance
      */
+    @Override
     public String prettyBal(OfflinePlayer player, CurrencyType type) {
         return format(getBalance(player, type), type);
     }
@@ -64,6 +66,7 @@ public class Economy {
      * @param player The player to be investigated
      * @return true if the player has an account, otherwise false
      */
+    @Override
     public boolean hasAccount(OfflinePlayer player) {
         return dataFile.getConfig().contains(player.getUniqueId().toString());
     }
@@ -76,6 +79,7 @@ public class Economy {
      * @param amount The threshold amount
      * @return true if the player had "amount" of "type" in their account, otherwise false
      */
+    @Override
     public boolean has(OfflinePlayer player, CurrencyType type, int amount) {
         return getBalance(player, type) >= amount;
     }
@@ -87,6 +91,7 @@ public class Economy {
      * @param type   The currency to retrieve from.
      * @return Player's balance of given type
      */
+    @Override
     public int getBalance(OfflinePlayer player, CurrencyType type) {
         return (int) getForPlayer(player, ".balance." + type.getNamePlural());
     }
@@ -99,6 +104,7 @@ public class Economy {
      * @param type   The currency to set
      * @param amount The balance to be set
      */
+    @Override
     public void setBalance(OfflinePlayer player, CurrencyType type, int amount) {
         if (amount <= 3456) {
             setForPlayer(player, ".balance." + type.getNamePlural(), amount);
@@ -113,6 +119,7 @@ public class Economy {
         }
     }
 
+    @Override
     public boolean setRequest(OfflinePlayer from, OfflinePlayer to,
                               CurrencyType type, int amount) {
         if (!hasAccount(from) || !hasAccount(to)) {
@@ -128,6 +135,7 @@ public class Economy {
         return true;
     }
 
+    @Override
     public PaymentRequest getRequest(OfflinePlayer from, OfflinePlayer to, CurrencyType type) {
         Object amount = getForPlayer(to, ".requests." + type.getNamePlural() + '.' + from.getUniqueId() + ".amount");
         if (amount != null)
@@ -136,6 +144,7 @@ public class Economy {
             return null;
     }
 
+    @Override
     public List<PaymentRequest> getRequests(OfflinePlayer player, CurrencyType type) {
         List<PaymentRequest> requests = new ArrayList<>();
         ConfigurationSection section = dataFile.getConfig().getConfigurationSection(player.getUniqueId() + ".requests." + type.getNamePlural());
@@ -149,6 +158,7 @@ public class Economy {
         return requests;
     }
 
+    @Override
     public void processRequest(OfflinePlayer from, OfflinePlayer to, CurrencyType type, int amount) {
         int current = getRequest(from, to, type).amount;
         if (current - amount > 0)
@@ -167,6 +177,7 @@ public class Economy {
      * @param amount The amount to be added
      * @return The Transaction object
      */
+    @Override
     public Transaction add(OfflinePlayer player, CurrencyType type, int amount) {
         if (amount < 0)
             return new Transaction(amount,
@@ -193,6 +204,7 @@ public class Economy {
      * @param amount The amount to be subtracted
      * @return The Transaction object
      */
+    @Override
     public Transaction subtract(OfflinePlayer player, CurrencyType type, int amount) {
         if (amount < 0)
             return new Transaction(amount,
@@ -219,6 +231,7 @@ public class Economy {
      *
      * @param player The player whose account is to be loaded.
      */
+    @Override
     public void loadAccount(OfflinePlayer player) {
         if (hasAccount(player)) {
             messenger.consoleOK("Player account found: " + player.getName());
