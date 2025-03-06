@@ -8,6 +8,8 @@ import org.bukkit.inventory.Inventory;
 /**
  * Represents an extendable class which handles an
  * Inventory based GUI.
+ * NOTE: You MUST use Bukkit#createInventory in the constructors of all such classes,
+ * including InventoryHolder
  */
 public abstract class InventoryHandler {
     public Inventory inv;
@@ -18,14 +20,6 @@ public abstract class InventoryHandler {
     public Inventory getInv() {
         return inv;
     }
-
-    /**
-     * A method which returns the inventory to be created
-     * for this handler. Usually made with Bukkit#createInventory, this
-     * method MUST be called in any subclass' constructor.
-     * @return the inventory
-     */
-    public abstract Inventory createInv();
 
     /**
      * What to do when an item is clicked in GUI.

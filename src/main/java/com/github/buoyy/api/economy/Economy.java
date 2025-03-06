@@ -121,10 +121,10 @@ public class Economy {
         }
         int toSet = (getForPlayer(to, ".requests." + type.getNamePlural() + '.' + from.getUniqueId()) == null) ?
                 amount : getRequest(from, to, type).amount + amount;
-        setForPlayer(to, ".requests." + type.getNamePlural() + '.' + from.getUniqueId()+".amount", toSet);
+        if (toSet < 0) return false;
+        setForPlayer(to, ".requests." + type.getNamePlural() + '.' + from.getUniqueId() + ".amount", toSet);
         messenger.consoleOK("Successfully set a request for player " + to.getName()
-                + " from player " + from.getName() + " for type " + type + " of amount " + toSet);
-
+                    +" from player "+from.getName()+" for type "+type+" of amount "+toSet);
         return true;
     }
 
@@ -149,8 +149,12 @@ public class Economy {
         return requests;
     }
 
-    public void processRequest(OfflinePlayer from, OfflinePlayer to, CurrencyType type) {
-        setForPlayer(to, ".requests." + type.getNamePlural() + '.' + from.getUniqueId(), null);
+    public void processRequest(OfflinePlayer from, OfflinePlayer to, CurrencyType type, int amount) {
+        int current = getRequest(from, to, type).amount;
+        if (current - amount > 0)
+            setForPlayer(to, ".requests." + type.getNamePlural() + '.' + from.getUniqueId() + ".amount", current - amount);
+        else if (current >= amount)
+            setForPlayer(to, ".requests." + type.getNamePlural() + '.' + from.getUniqueId(), null);
     }
 
     /**
